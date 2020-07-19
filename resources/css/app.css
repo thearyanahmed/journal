@@ -1,0 +1,17 @@
+@tailwind base;
+
+@tailwind components;
+
+.bg-pure-white {
+    background-color: #ffffff;
+}
+
+.text-sfh {
+    color: #3d4951;
+}
+
+.bg-sfh {
+    background-color: #3d4951;
+}
+
+@tailwind utilities;
