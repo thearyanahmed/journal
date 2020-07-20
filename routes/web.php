@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'ContentController@index');
-Route::get('/read/{article}', 'ContentController@index')->name('articles.read');
+Route::get('/', 'ArticleController@welcome');
+
+Route::resource('articles','ArticleController');
+Route::post('upload','ContentController@upload');
 Route::get('/categories', 'ContentController@categories')->name('categories.index');
 Route::get('/home', 'ContentController@home')->name('home');
 

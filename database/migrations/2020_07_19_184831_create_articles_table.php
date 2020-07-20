@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug')->unique();
             $table->string('excerpt')->nullable();
             $table->text('body');
+            $table->tinyInteger('status')->default(Article::DRAFT);
 
             $table->timestamps();
         });

@@ -14,4 +14,17 @@
     background-color: #3d4951;
 }
 
+.grad {
+    background: rgb(2,0,36);
+    background: linear-gradient(32deg, rgba(2,0,36,0.8337710084033614) 1%, rgba(160,175,191,0) 18%);
+}
+
+.bg-sfh-dark {
+    background: #3d4252;
+}
+
+.shadow-test {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+}
+
 @tailwind utilities;

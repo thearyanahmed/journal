@@ -17,12 +17,11 @@
                         </div>
 
                         <div class="w-full p-6">
-                            @if(count($cat->articles) === 0)
 
+                            @if(count($cat->articles) === 0)
                                 <p class="text-sfh">
                                     No articles yet in this category.
                                 </p>
-
                             @endif
 
                             <div class="flex flex-col">

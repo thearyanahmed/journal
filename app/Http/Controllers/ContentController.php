@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ContentController extends Controller
 {
@@ -15,7 +17,7 @@ class ContentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->only('home');
     }
 
     /**
@@ -28,12 +30,6 @@ class ContentController extends Controller
         return view('home');
     }
 
-    public function index()
-    {
-        $articles = Article::paginate(20);
-
-        return view('welcome',compact('articles'));
-    }
 
     public function categories()
     {
@@ -44,5 +40,19 @@ class ContentController extends Controller
         ])->orderBy('name','asc')->get();
 
         return view('categories',compact('cats'));
+    }
+
+    public function upload(Request $request)
+    {
+        if(! $request->hasFile('file')) {
+            throw new \Exception('No file provided.');
+        }
+        $uploaded = $request->file('file')->store('uploads','public');
+
+        $url = url('/') . '/storage/' . $uploaded;
+
+        return response()->json([
+            'link' => $url
+        ]);
     }
 }
