@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     @stack('styles')
 </head>
-<body class="bg-pure-white h-screen antialiased leading-none">
-<div id="app" class="grad">
-    @include('partials.flash-notification')
+<body class="bg-pure-white flex flex-col justify-between h-screen antialiased leading-none">
+    <div id="app" class="grad">
+        @include('partials.flash-notification')
 
-    @yield('body')
-</div>
+        @yield('body')
+    </div>
 
     @include('partials.footer')
 

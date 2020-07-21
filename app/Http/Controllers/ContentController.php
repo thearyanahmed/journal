@@ -31,7 +31,7 @@ class ContentController extends Controller
     }
 
 
-    public function categories()
+    public function archives()
     {
         $cats = Category::with([
             'articles' => function($articles) {
@@ -39,7 +39,7 @@ class ContentController extends Controller
             }
         ])->orderBy('name','asc')->get();
 
-        return view('categories',compact('cats'));
+        return view('archives',compact('cats'));
     }
 
     public function upload(Request $request)

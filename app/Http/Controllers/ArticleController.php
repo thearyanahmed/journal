@@ -7,7 +7,6 @@ use App\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
@@ -17,11 +16,6 @@ class ArticleController extends Controller
         $this->middleware('auth')->only(['index','create','store','edit','update','delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
     public function welcome()
     {
         $articles = Article::published()->orderBy('created_at','desc')->paginate(config('conf.pagination'));
@@ -35,9 +29,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('created_at','desc')->paginate(config('conf.pagination'));
+        $articles = Article::query();
+
+        if(\request()->has('q') && \request()->get('q') !== null) {
+            $articles = $articles->where('name','like','%'.\request()->get('q') . '%')
+                ->orWhere('slug','like', '%' .\request()->get('q') . '%');
+        }
+
+        $articles = $articles->orderBy('created_at','desc')->paginate(config('conf.pagination'));
 
         $stats = [ 'published' => 0, 'drafts' => 0 ];
+        $pageBuilder = [ 'has_filter' => request()->has('q')];
 
         foreach($articles as $article) {
             if($article->status === Article::PUBLISHED) {
@@ -48,7 +50,7 @@ class ArticleController extends Controller
             }
         }
 
-        return view('articles.index',compact('articles','stats'));
+        return view('articles.index',compact('articles','stats','pageBuilder'));
     }
 
     /**
@@ -63,13 +65,6 @@ class ArticleController extends Controller
         return view('articles.create',compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function store(Request $request)
     {
         $rules = [
@@ -97,7 +92,7 @@ class ArticleController extends Controller
 
             notify('Article added to the page.');
 
-            return redirect()->back();
+            return redirect()->route('articles.index');
 
         } catch (\Exception $e) {
             notify($e->getMessage());
@@ -106,13 +101,6 @@ class ArticleController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param string $slug
-     * @return Application|Factory|View
-     * @throws \Exception
-     */
     public function show(string $slug)
     {
         $article = Article::whereSlug($slug);
@@ -124,7 +112,7 @@ class ArticleController extends Controller
         $article = $article->first();
 
         if(! $article) {
-            throw new \Exception('Could not find the article that you are looking for.');
+            abort(404);
         }
 
         $article->load('categories');
@@ -132,12 +120,6 @@ class ArticleController extends Controller
         return \view('articles.view',compact('article'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return Application|Factory|View
-     */
     public function edit(Article $article)
     {
         $categories = Category::all();
@@ -152,14 +134,6 @@ class ArticleController extends Controller
         return \view('articles.edit',compact('article','cats','categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Article $article
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function update(Request $request, Article $article)
     {
         $rules = [
@@ -190,7 +164,7 @@ class ArticleController extends Controller
 
             notify('Article updated.');
 
-            return redirect()->back();
+            return redirect()->route('articles.index');
 
         } catch (\Exception $e) {
             notify($e->getMessage());
@@ -200,12 +174,6 @@ class ArticleController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Article  $article
-     * @return Response
-     */
     public function destroy(Article $article)
     {
         //

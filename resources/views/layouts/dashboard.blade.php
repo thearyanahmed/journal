@@ -15,14 +15,6 @@
             <ul class="mt-2 text-gray-600">
                 <!-- Links -->
                 <li class="mt-8">
-                    <a href="#home" class="flex ">
-                        <span class="ml-2 capitalize font-medium text-black dark:text-gray-300">
-						    dashboard
-					    </span>
-                    </a>
-                </li>
-
-                <li class="mt-8">
                     <a href="{{ route('articles.index') }}" class="flex">
                         <span class="ml-2 capitalize font-medium text-black
 						dark:text-gray-300">
@@ -57,4 +49,3 @@
         </div>
     </div>
 @endsection
-

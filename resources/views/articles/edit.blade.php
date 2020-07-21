@@ -1,12 +1,12 @@
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('content')
     <main class="w-full inline-block transition duration-500 ease-in-out overflow-y-scroll">
         <div class="mx-2 my-2">
-            <h2 class="my-4 text-4xl dark:text-gray-400">
-                /Write
-            </h2>
-            <div class="w-3/6 mx-auto">
+            <div class="w-4/6 mx-auto">
+                <h2 class="my-4 text-4xl dark:text-gray-400">
+                    /Write
+                </h2>
                 <form action="{{ route('articles.update',$article->id) }}" method="POST" class="bg-gray-300 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     @csrf
                     @method('PATCh')
@@ -54,15 +54,8 @@
                         @endforeach
                     </div>
 
-                    @if ($errors->any())
-                        <div class="text-sm border rounded p-2 text-black bg-red-200">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    @include('partials.form.errors')
+
                     <div class="flex items-center justify-end">
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                             Update
@@ -79,11 +72,5 @@
 @endpush
 @push('scripts')
     <script type="text/javascript" src="{{ asset('js/froala.min.js') }}"></script>
-
-    <script>
-        var editor = new FroalaEditor('#editor',{
-            heightMin: 200,
-            imageUploadURL: '/upload',
-        })
-    </script>
+    <script src="{{ asset('js/init.editor.js') }}"></script>
 @endpush

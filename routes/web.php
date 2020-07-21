@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', 'ArticleController@welcome');
 
 Route::resource('articles','ArticleController');
-Route::post('upload','ContentController@upload');
-Route::get('/categories', 'ContentController@categories')->name('categories.index');
-Route::get('/home', 'ContentController@home')->name('home');
 
+Route::post('upload','ContentController@upload');
+Route::get('/archives', 'ContentController@archives')->name('archives');
+Route::get('/home', 'ContentController@home')->name('home');
