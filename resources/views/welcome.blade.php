@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex items-center">
         <!-- xs,sm,md,lg,xl -->
-        <div class="md:w-11/12 xl:w-1/2 md:mx-auto h-auto">
+        <div class="w-full md:w-11/12 xl:w-1/2 md:mx-auto h-auto">
             @foreach($articles as $article)
                 <div class="flex break-words bg-white mt-5 p-2 rounded">
                     <div class=" flex flex-col self-center p-2">
@@ -28,18 +28,23 @@
                     {{ $articles->links() }}
                 </div>
             @else
-            <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
 
-                <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                    Hello there,
-                </div>
+                <div class="flex items-center">
+                    <div class="w-full px-2 md:w-1/2 md:mx-auto">
+                        <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
 
-                <div class="w-full p-6">
-                    <p class="text-gray-700">
-                        Aryan haven't written any articles yet.
-                    </p>
+                            <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
+                                Hello there,
+                            </div>
+
+                            <div class="w-full p-6">
+                                <p class="text-gray-700">
+                                    Aryan haven't written any articles yet.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
             @endif
         </div>
     </div>

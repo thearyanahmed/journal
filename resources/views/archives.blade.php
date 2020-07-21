@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex items-center">
-        <div class="md:w-1/2 md:mx-auto">
+        <div class="w-full px-2 md:w-1/2 md:mx-auto">
 
             @foreach($cats as $cat)
                 <div class="flex flex-col break-word">

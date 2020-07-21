@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['register' => false]);
+// Route::middleware('doNotCacheResponse')->group(function(){
 
-Route::get('/', 'ArticleController@welcome');
+	Auth::routes(['register' => false]);
 
-Route::resource('articles','ArticleController');
+	Route::get('/', 'ArticleController@welcome');
 
-Route::post('upload','ContentController@upload');
-Route::get('/archives', 'ContentController@archives')->name('archives');
-Route::get('/home', 'ContentController@home')->name('home');
+	Route::resource('articles','ArticleController');
+
+	Route::post('upload','ContentController@upload');
+	Route::get('/archives', 'ContentController@archives')->name('archives');
+	Route::get('/home', 'ContentController@home')->name('home');
+
+// });
