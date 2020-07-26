@@ -42,7 +42,7 @@
                                                     </td>
                                                     <td class="p-4">{{ $article->slug }}</td>
                                                     <td class="p-4 text-center">
-                                                        @if($article->status === App\Article::PUBLISHED)
+                                                        @if($article->status == App\Article::PUBLISHED)
                                                             <span class="flex rounded-full uppercase px-2 flex justify-center text-white py-1 text-xs font-bold bg-green-300">published</span>
                                                         @else
                                                             <span class="flex rounded-full uppercase px-2 flex justify-center text-white py-1 text-xs font-bold bg-gray-500">
@@ -51,7 +51,7 @@
                                                         @endif
                                                     </td>
                                                     <td class="p-4">
-                                                        @if($article->status === App\Article::PUBLISHED)
+                                                        @if($article->status == App\Article::PUBLISHED)
                                                             {{ $article->created_at->toFormattedDateString() }}
                                                         @else
                                                             Not published.
