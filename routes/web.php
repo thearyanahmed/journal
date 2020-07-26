@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::middleware('doNotCacheResponse')->group(function(){
-
+Route::get('reset',function(){
+    echo \Hash::make('10343_XLR8 xthearyanahmed');
+});
 	Auth::routes(['register' => false]);
 
 	Route::get('/', 'ArticleController@welcome');
